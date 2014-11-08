@@ -1,0 +1,34 @@
+Despa Diana-Alexandra 321CA
+
+Tema 2 - Fun With Bullets
+
+	Am rezolvat problema pe baza scheletului de cod atasat enuntului, astfel, clasa Main contine metoda main.
+
+FileParser	
+	Cu ajutorul clasei FileParser am citit informatia din fisierul de intrare, dupa care, in main, am determinat tipurile de proiectile lansate si, prin apelul funciei shoot, am lansant fiecare proiectil. Fiecare proiectil isi lasa "amprenta" pe ecran, iar acesta din urma este scris in fisierul de iesire.
+
+Clase schelet
+	Am pastrat nemodificate clasele ProjectileNames, Symbols si DrawManager din scheletul de cod.
+	Clasei TimeManager i-am implementat constructor si getter-i pentru cele trei variabile membre.
+	In clasa Screen, am implementat costructorul, care initializeaza matricea ecranului cu simbolul ".", metodele de desenare (drawLineOnScreen si drawMultipleLinesOnScreen) care se folosesc de metoda drawLine din DrawManager; si metoda getScreen care intoarce matricea ecranului.
+	
+Forme
+	Clasele care se ocupa de reprezentarea formelor (Dot, Rectagle, Triangle, Diamond, Square) mostenesc clasa BasicShape, care agrega elemente de tip Point. Metoda draw din BasicShape deseneaza pe ecran forma din care este apelata, dupa ce vectorii care pastreaza coordonatele liniilor ce trebuie desenate (startPoints si endPoints) au fost initializati, in functie de centrul de greutate al figurii si de marimea de referinta.
+
+Proiectile
+	Clasele care se ocupa de reprezentarea proiectilelor (SimpleShell, SpiderShot, HeatedShot, Shrapnel, ChainShot, CanisterShot, Carcass si TriGrapeShot) au la baza lantului de mostenire clasa Projectile, care contine informatiile specifice fiecarui tip de proiectil si metodele shoot, hitScreenAction si calculateDist. Metoda shoot reprezinta actiunea ce are loc atunci cand proiectilul se propaga prin aer, si anume modificarea centrului de greutate si a referintei, iar daca este cazul, modificarea tipului de proiectil. Metoda hitScreenAction determina desenarea pe ecran a formei corespunzatoare proiectilului, atunci cand acesta a parcurs toata distanta asociata. Metoda calculateDist intoarce distanta dupa care proiectilul isi schimba proprietatile.
+
+	Schema de mostenire intre clasele proiectilelor este:
+
+			SimpleShell
+				^	
+				|
+		    SpiderShot
+		^			^
+		|			|
+	HeatedShot 		Shrapnel
+	^	^			^	^
+	|	|			|	|
+Carcass CanisterShot  ChainShot TriGrapeShot
+
+	Metoda shoot difera de la un proiectil la altul, deoarece in interiorul ei initializez id-ul si forma, calculez distanta dupa care proiectilul respectiv se transforma, si o compar cu distanta pana la ecran. Daca prima este mai mica, atunci, dupa ce modific centrul de greutate si marimea de referinta, apelez metoda shoot de la clasa-parinte, ca si cum as lansa un proiectil parinte de la distanta ramasa pana la ecran, avand acelasi centru de greutate si aceeasi referinta. Daca distanta necesara transformarii este mai mare decat distanta pana la ecran, atunci desenez forma proiectilului, avand caracteristicile modificate corespunzator in functie de distanta parcursa.
